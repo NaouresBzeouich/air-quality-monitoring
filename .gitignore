@@ -1,0 +1,35 @@
+# Environment
+.env
+venv/
+env/
+.venv/
+.env.*
+
+# JetBrains IDEs 
+.idea/  
+
+# VSCode
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Node 
+node_modules/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini 
