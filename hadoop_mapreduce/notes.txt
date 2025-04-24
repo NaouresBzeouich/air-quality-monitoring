@@ -1,0 +1,13 @@
+hello ! 
+
+first the data for testing is zipped , unzip it and check that the folder is on .gitignore to do not make troubles xd 
+
+this data is not completed , this is just for now testing and first implementations , 
+the data first is structured :
+data/
+├── locationid=X/   # the X is the id of the location of the sensor ( a location can contains one or many sensors )
+│   └── year=20YZ/  # 20YZ is the date where the statistic is captured 
+│   │   └── month=AB/ # AB is the month expl : 07 or 11 
+│   │   │   └── location-X-20XXABCD.csv.gz  # CD is the date 
+
+
