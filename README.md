@@ -38,6 +38,8 @@ An open-source distributed real-time air quality monitoring system using Kafka, 
 - Prediction of gas levels for the next day by location.
 - Interactive dashboard with charts, maps, and filters.
 
+![image](https://github.com/user-attachments/assets/1bd474ba-b0a2-4c0a-a3c3-8ad5b5351962)
+
 ---
 
 ## 🏁 Getting Started
