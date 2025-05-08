@@ -47,11 +47,19 @@ An open-source distributed real-time air quality monitoring system using Kafka, 
 
 air-quality-distributed-system/
 ├── backend/              # Django REST API
+
 ├── frontend/             # Angular Dashboard
+
 ├── kafka_producer/       # Python script to send data from OpenAQ
+
 ├── spark_streaming/      # Spark job to process streaming data
+
 ├── hadoop_mapreduce/     # MapReduce job for daily aggregation
+
 ├── hbase_integration/    # Data writing/reading from HBase
+
 ├── README.md
-├── docker-compose.yml   
+
+├── docker-compose.yml  
+ 
 └── requirements.txt

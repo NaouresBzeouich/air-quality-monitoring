@@ -11,3 +11,15 @@ data/
 │   │   │   └── location-X-20XXABCD.csv.gz  # CD is the date 
 
 
+note hadoop is working with Java , we hose to learn something new and make some difference o work with python , there's some libraries tha help generate hadoop necessary classes 
+
+now , if you wanna get all te dependencies for hadoop , hawkoum fel dockerfile file just run an image oof it using this command : 
+    docker build -t hadoop-python-local .
+and after that run a container of that image : 
+    docker run -it --name hadoop-container hadoop-python-local  // docker run -it --name hadoop-container hadoop-image /bin/bash
+
+
+to run python  we need , to install the lbraries :
+    pip install pyarrow
+
+
