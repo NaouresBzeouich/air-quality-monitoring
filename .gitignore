@@ -13,7 +13,6 @@ env/
 
 # Python
 __pycache__/
-*.py[cod]
 *.sqlite3
 *.log
 *.pot
@@ -21,10 +20,6 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Django
-db.sqlite3
-media/
-staticfiles/
 
 # Node 
 node_modules/
@@ -35,4 +30,6 @@ ehthumbs.db
 Desktop.ini 
 
 # testing data 
-hadoop_mapreduce/data/
+hadoop/initial-data/data/
+hadoop/initial-data/extracted-data/
+hadoop/initial-data/data.zip/
