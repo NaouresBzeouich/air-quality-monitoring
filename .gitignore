@@ -32,4 +32,7 @@ Desktop.ini
 # testing data 
 hadoop/initial-data/data/
 hadoop/initial-data/extracted-data/
-hadoop/initial-data/data.zip/
+hadoop/initial-data/data.zip
+hadoop/initial-data/light-data/
+hadoop/initial-data/grouped-data/
+hadoop/initial-data/split-data/
