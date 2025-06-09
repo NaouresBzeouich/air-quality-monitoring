@@ -1,4 +1,4 @@
-from confluent_kafka import Producer
+# from confluent_kafka import Producer
 import requests
 import json
 import time
@@ -14,7 +14,7 @@ HEADERS = {
     "x-api-key": API_KEY
 }
 
-producer = Producer({'bootstrap.servers': KAFKA_BROKER})
+# producer = Producer({'bootstrap.servers': KAFKA_BROKER})
 
 def delivery_report(err, msg):
     if err is not None:
@@ -50,13 +50,13 @@ def fetch_all_locations():
         all_locations.extend(results)
 
         # Send each location as a separate Kafka message
-        for location in results:
-            producer.produce(
-                KAFKA_TOPIC,
-                value=json.dumps(location, ensure_ascii=False),
-                callback=delivery_report
-            )
-        producer.flush()  # Ensure delivery before next page
+        # for location in results:
+        #     producer.produce(
+        #         KAFKA_TOPIC,
+        #         value=json.dumps(location, ensure_ascii=False),
+        #         callback=delivery_report
+        #     )
+        # producer.flush()  # Ensure delivery before next page
 
         page += 1
         time.sleep(0.2)
