@@ -2,7 +2,7 @@ from confluent_kafka import Consumer, KafkaException
 import sys
 
 KAFKA_BROKER = 'localhost:9092'
-KAFKA_TOPIC = 'openaq-locations'
+KAFKA_TOPIC = 'openaq-measurements'
 KAFKA_GROUP = 'openaq-consumer-group'
 
 conf = {

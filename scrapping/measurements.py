@@ -1,4 +1,5 @@
 # from confluent_kafka import Producer
+from confluent_kafka import Producer
 import requests
 import json
 import time
@@ -25,6 +26,19 @@ HOUR_RESET_TIME = 3600  # seconds
 # CSV constants
 CSV_HEADERS = ['location_id', 'sensor_id', 'location', 'datetime', 'lat', 'lon', 'parameter', 'unit', 'value']
 CSV_DIR = "measurements_data"
+
+# Initialize Kafka producer
+producer = Producer({
+    'bootstrap.servers': KAFKA_BROKER,
+    'client.id': 'openaq-producer'
+})
+
+def delivery_report(err, msg):
+    """Callback for Kafka message delivery"""
+    if err is not None:
+        print(f"❌ Message delivery failed: {err}")
+    else:
+        print(f"✅ Message delivered to {msg.topic()} [{msg.partition()}]")
 
 class RateLimiter:
     def __init__(self):
@@ -76,7 +90,7 @@ def get_csv_path(location_id):
     return os.path.join(CSV_DIR, f"{location_id}.csv")
 
 def save_measurements_to_csv(location_id, location_name, lat, lon, sensor_id, measurements):
-    """Save measurements to a CSV file, with newest data on top"""
+    """Save measurements to a CSV file and send to Kafka, with newest data on top"""
     csv_path = get_csv_path(location_id)
     
     # Read existing data if file exists
@@ -106,6 +120,22 @@ def save_measurements_to_csv(location_id, location_name, lat, lon, sensor_id, me
             'value': m.get('value')
         }
         new_data.append(new_row)
+        
+        # Create CSV string for Kafka
+        csv_string = ','.join(str(new_row[field]) for field in CSV_HEADERS)
+        
+        # Send to Kafka
+        try:
+            producer.produce(
+                KAFKA_TOPIC,
+                key=str(location_id),  # Use location_id as the key for partitioning
+                value=csv_string,
+                callback=delivery_report
+            )
+            # Trigger any available delivery report callbacks
+            producer.poll(0)
+        except Exception as e:
+            print(f"❌ Failed to send to Kafka: {e}")
 
     # Combine new and existing data
     all_data = new_data + existing_data
@@ -115,6 +145,9 @@ def save_measurements_to_csv(location_id, location_name, lat, lon, sensor_id, me
         writer = csv.DictWriter(f, fieldnames=CSV_HEADERS)
         writer.writeheader()
         writer.writerows(all_data)
+
+    # Make sure all messages are sent
+    producer.flush()
 
 # Load locations file
 with open("openaq_locations.json", "r", encoding="utf-8") as f:
@@ -176,3 +209,10 @@ for loc in locations:
             continue
 
 print(f"\n✅ Done! {total_measurements} total measurements saved to CSV files in '{CSV_DIR}' directory")
+
+try:
+    # Your existing code here
+    pass
+finally:
+    # Make sure to flush any remaining messages before exiting
+    producer.flush()
